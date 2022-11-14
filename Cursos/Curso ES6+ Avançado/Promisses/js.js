@@ -26,8 +26,10 @@ defer
         console.log(` Quem está usando: ${data}`);
 
     })
-//Em caso de reject =>
-    .catch( (err) => { console.log(err) });
+    //Em caso de reject =>
+    .catch( (err) => { console.log(err) })
+
+    .finally(data => console.log('-------------'))
 
 
     // E X E M P L O  D E  P R O M I S E
@@ -54,3 +56,39 @@ defer
             -> Espera receber QUALQUER tipo de dado;
         }
     */
+
+    //O U T R O  E X E M P L O  D E  P R O M I S E
+
+const currency = new Promise((resolve, reject) => {
+
+    setTimeout(() => {
+
+        resolve({
+            currency: 'euro', 
+            value: 3.50
+        });
+    }, 2000);
+});
+
+const countries = new Promise((resolve, reject) => {
+
+    setTimeout(() => {
+
+        resolve([
+            'Ireland', 'England', 'Scotland'
+        ]);
+    }, 600)
+});
+
+Promise
+    //APENAS depois de resolver todas as promises passadas
+    // é que ele irá fazer as outras ações( .then );
+    .all( [currency, countries] )
+    .then( data => console.log(data) )
+
+Promise
+    // Uma 'Corrida';
+    //Após a primeira promise for resolvida, ignora toda as outras;
+    .race( [currency, countries] )
+    .then( data => console.log(data) )
+    //['Ireland', 'England', 'Scotland'];

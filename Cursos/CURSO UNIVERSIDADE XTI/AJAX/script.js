@@ -22,6 +22,7 @@ window.onload = function() {
         }
         return ajax;
     }
+
     function mostrar(ajax){
         r = document.getElementById("resposta");
         while(r.hasChildNodes()){r.removeChild(r.lastChild);}
@@ -30,6 +31,7 @@ window.onload = function() {
 
       alert(ajax.responseText)
     }
+    
     function requisitar(url){
         ajax = iniciarAjax();
         carregando(document.getElementById("resposta"));
