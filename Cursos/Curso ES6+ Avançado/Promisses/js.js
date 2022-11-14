@@ -23,8 +23,34 @@ defer
 //Vai receber o return do de cima!
     .then( (data) => {
 
-        console.log(data);
+        console.log(` Quem está usando: ${data}`);
 
     })
 //Em caso de reject =>
     .catch( (err) => { console.log(err) });
+
+
+    // E X E M P L O  D E  P R O M I S E
+
+    var posts = fetch('https://api.github.com/users/diego3g');
+
+    posts
+        //Estamos passando o tipo de dado para JSON;
+        .then( data => data.json() )
+        //Primeiro deve-se converter o dado, para depois manipulá-lo;
+        .then( data => {
+            console.log(data)
+            throw new Error('Ixi deu error! :/')
+        })
+        .catch( err => console.log(err))
+
+
+        /*
+        FETCH => {
+
+            -> É o famoso AJAX, porém diferente de um AJAX comum, 
+            o fetch utiliza os protocolos de uma Promise;
+
+            -> Espera receber QUALQUER tipo de dado;
+        }
+    */
